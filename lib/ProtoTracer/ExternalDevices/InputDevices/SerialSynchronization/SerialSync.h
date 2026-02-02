@@ -3,9 +3,11 @@
 #include <SerialTransfer.h>
 #include "../../../Utils/Math/Vector2D.h"
 
-class SerialSync {
+class SerialSync
+{
 private:
-    static struct Data {
+    static struct Data
+    {
         float ratio;
         uint8_t mode;
         float mouthMove;

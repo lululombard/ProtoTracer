@@ -20,25 +20,25 @@
 #include "Examples/UserConfiguration.h"
 
 #if defined(PROJECT_PROTOGEN_HUB75)
-    #include "Examples/Protogen/ProtogenHUB75Project.h"
-    ProtogenHUB75Project project; ///< Instance of the Protogen HUB75 project.
+#include "Examples/Protogen/ProtogenHUB75Project.h"
+ProtogenHUB75Project project; ///< Instance of the Protogen HUB75 project.
 
 #elif defined(PROJECT_PROTOGEN_WS35)
-    #include "Examples/Protogen/ProtogenWS35Project.h"
-    ProtogenWS35Project project; ///< Instance of the Protogen WS35 project.
+#include "Examples/Protogen/ProtogenWS35Project.h"
+ProtogenWS35Project project; ///< Instance of the Protogen WS35 project.
 
 #elif defined(PROJECT_PROTOGEN_BETA)
-    #include "Examples/Protogen/BetaProject.h"
-    BetaProject project; ///< Instance of the Beta project.
+#include "Examples/Protogen/BetaProject.h"
+BetaProject project; ///< Instance of the Beta project.
 
 #elif defined(PROJECT_VERIFY_ENGINE)
-    #include "Examples/VerifyEngine.h"
-    VerifyEngine project; ///< Instance of the Verify Engine project.
+#include "Examples/VerifyEngine.h"
+VerifyEngine project; ///< Instance of the Verify Engine project.
 
 #elif defined(PROJECT_VERIFY_HARDWARE)
-    #include "Examples/Protogen/ProtogenHardwareTest.h"
+#include "Examples/Protogen/ProtogenHardwareTest.h"
 #else
-    #error "No project defined! Please define one of PROJECT_PROTOGEN_HUB75, PROJECT_PROTOGEN_WS35, or PROJECT_VERIFY_ENGINE."
+#error "No project defined! Please define one of PROJECT_PROTOGEN_HUB75, PROJECT_PROTOGEN_WS35, or PROJECT_VERIFY_ENGINE."
 #endif
 
 /**
@@ -46,21 +46,25 @@
  *
  * If PROJECT_VERIFY_HARDWARE is defined, runs continuous hardware testing.
  */
-void setup() {
-    Serial.begin(115200); ///< Initializes the serial port for debugging.
-    Serial.println("\nStarting...");
+void setup()
+{
+    delay(2000); // Give USB time to enumerate before doing anything
+    Serial.begin(115200);
+    while (!Serial && millis() < 4000) {} // Wait for serial or timeout
+    Serial.println("\n=== ProtoTracer Starting ===");
 
-    #ifndef PROJECT_VERIFY_HARDWARE
+#ifndef PROJECT_VERIFY_HARDWARE
     project.Initialize(); ///< Initializes the selected project.
-    delay(100); ///< Ensures stability after initialization.
-    #else
-    while (true) {
-        HardwareTest::ScanDevices(); ///< Scans for connected hardware devices.
+    delay(100);           ///< Ensures stability after initialization.
+#else
+    while (true)
+    {
+        HardwareTest::ScanDevices();    ///< Scans for connected hardware devices.
         HardwareTest::TestNeoTrellis(); ///< Tests the NeoTrellis input device.
         HardwareTest::TestBoopSensor(); ///< Tests the proximity (boop) sensor.
-        HardwareTest::TestHUD(); ///< Tests the HUD (Head-Up Display) functionality.
+        HardwareTest::TestHUD();        ///< Tests the HUD (Head-Up Display) functionality.
     }
-    #endif
+#endif
 }
 
 /**
@@ -68,13 +72,14 @@ void setup() {
  *
  * If PROJECT_VERIFY_HARDWARE is defined, this function is disabled.
  */
-void loop() {
-    #ifndef PROJECT_VERIFY_HARDWARE
+void loop()
+{
+#ifndef PROJECT_VERIFY_HARDWARE
     float ratio = (float)(millis() % 5000) / 5000.0f; ///< Calculates animation ratio based on time.
 
     project.Animate(ratio); ///< Animates the project based on the current ratio.
-    project.Render(); ///< Renders the project's scene.
-    project.Display(); ///< Displays the rendered frame.
-    project.PrintStats(); ///< Outputs debugging and performance statistics.
-    #endif
+    project.Render();       ///< Renders the project's scene.
+    project.Display();      ///< Displays the rendered frame.
+    project.PrintStats();   ///< Outputs debugging and performance statistics.
+#endif
 }
