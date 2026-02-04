@@ -1,8 +1,8 @@
 /**
  * @file ProtogenProjectTemplate.h
- * @brief Contains the class definition for ProtogenProject, a default project 
+ * @brief Contains the class definition for ProtogenProject, a default project
  *        template for handling microphone input, boop sensor input, button control,
- *        and various material/animation functionalities in a small-scale 3D 
+ *        and various material/animation functionalities in a small-scale 3D
  *        rendering environment for microcontrollers.
  */
 
@@ -103,14 +103,14 @@ private:
     RainbowSpiral rainbowSpiral;       ///< Spiral rainbow animated material.
     HorizontalRainbow hRainbow;        ///< Horizontal rainbow animated material.
     SimpleMaterial redMaterial    = SimpleMaterial(RGBColor(255, 0, 0));   ///< Solid red material.
-    SimpleMaterial orangeMaterial = SimpleMaterial(RGBColor(255, 100, 0)); ///< Solid orange material.
+    SimpleMaterial orangeMaterial = SimpleMaterial(RGBColor(255, 140, 0)); ///< Solid orange material.
     SimpleMaterial whiteMaterial  = SimpleMaterial(RGBColor(255, 255, 255)); ///< Solid white material.
     SimpleMaterial greenMaterial  = SimpleMaterial(RGBColor(0, 255, 0));   ///< Solid green material.
     SimpleMaterial blueMaterial   = SimpleMaterial(RGBColor(0, 0, 255));   ///< Solid blue material.
     SimpleMaterial yellowMaterial = SimpleMaterial(RGBColor(255, 255, 0)); ///< Solid yellow material.
     SimpleMaterial purpleMaterial = SimpleMaterial(RGBColor(255, 0, 255)); ///< Solid purple material.
     SimpleMaterial blackMaterial  = SimpleMaterial(RGBColor(0, 0, 0));     ///< Solid black material.
-    
+
     /**
      * @brief Gradient used for color transitions.
      */
@@ -122,12 +122,12 @@ private:
      */
     MaterialAnimator<20> materialAnimator;   ///< Handles layering of face materials.
     MaterialAnimator<20> backgroundMaterial; ///< Handles layering of background materials.
-    
+
     /**
      * @brief Audio-reactive materials.
      */
-    SpectrumAnalyzer sA = SpectrumAnalyzer(Vector2D(200, 100), Vector2D(100, 50), true, true); 
-    AudioReactiveGradient aRG = AudioReactiveGradient(Vector2D(160, 160), Vector2D(0, 0), true, true); 
+    SpectrumAnalyzer sA = SpectrumAnalyzer(Vector2D(200, 100), Vector2D(100, 50), true, true);
+    AudioReactiveGradient aRG = AudioReactiveGradient(Vector2D(160, 160), Vector2D(0, 0), true, true);
     Oscilloscope oSC = Oscilloscope(Vector2D(200, 100), Vector2D(0, 0));
 
     // --- Project controllers ---
@@ -143,7 +143,7 @@ private:
     /**
      * @brief Function generators for X/Y wiggle movements.
      */
-    FunctionGenerator fGenMatXMove = FunctionGenerator(FunctionGenerator::Sine, -2.0f, 2.0f, 5.3f); 
+    FunctionGenerator fGenMatXMove = FunctionGenerator(FunctionGenerator::Sine, -2.0f, 2.0f, 5.3f);
     FunctionGenerator fGenMatYMove = FunctionGenerator(FunctionGenerator::Sine, -2.0f, 2.0f, 6.7f);
 
     /**
@@ -442,8 +442,8 @@ protected:
      * @param interpolationMethod The interpolation method (overshoot, linear, etc.).
      * @param invertDirection Whether to invert the animation (1.0f to 0.0f).
      */
-    void AddParameter(uint8_t index, float* parameter, uint16_t transitionFrames, 
-                      IEasyEaseAnimator::InterpolationMethod interpolationMethod = IEasyEaseAnimator::InterpolationMethod::Overshoot, 
+    void AddParameter(uint8_t index, float* parameter, uint16_t transitionFrames,
+                      IEasyEaseAnimator::InterpolationMethod interpolationMethod = IEasyEaseAnimator::InterpolationMethod::Overshoot,
                       bool invertDirection = false);
 
     /**
@@ -474,7 +474,7 @@ protected:
      * @param minOpacity The minimum opacity.
      * @param maxOpacity The maximum opacity.
      */
-    void AddMaterial(Material::Method method, Material* material, uint16_t frames = 20, 
+    void AddMaterial(Material::Method method, Material* material, uint16_t frames = 20,
                      float minOpacity = 0.0f, float maxOpacity = 1.0f);
 
     /**
@@ -499,7 +499,7 @@ protected:
      * @param minOpacity Minimum opacity.
      * @param maxOpacity Maximum opacity.
      */
-    void AddBackgroundMaterial(Material::Method method, Material* material, uint16_t frames = 20, 
+    void AddBackgroundMaterial(Material::Method method, Material* material, uint16_t frames = 20,
                                float minOpacity = 0.0f, float maxOpacity = 1.0f);
 
     /**
@@ -608,8 +608,8 @@ public:
      * @param buttonPin The pin used for the button.
      * @param faceCount The number of faces for possible UI or animations.
      */
-    ProtogenProject(CameraManager* cameras, Controller* controller, uint8_t numObjects, 
-                    Vector2D camMin, Vector2D camMax, uint8_t microphonePin, 
+    ProtogenProject(CameraManager* cameras, Controller* controller, uint8_t numObjects,
+                    Vector2D camMin, Vector2D camMax, uint8_t microphonePin,
                     uint8_t buttonPin, uint8_t faceCount);
 
     /**
@@ -619,7 +619,7 @@ public:
 
     /**
      * @brief Callback invoked when the Spectrum Analyzer face is enabled/updated.
-     * 
+     *
      * This method is pure virtual and must be implemented by the derived class
      * to define custom behavior upon enabling or updating the Spectrum Analyzer face.
      */
@@ -627,7 +627,7 @@ public:
 
     /**
      * @brief Callback invoked when the Audio Reactive Gradient face is enabled/updated.
-     * 
+     *
      * This method is pure virtual and must be implemented by the derived class
      * to define custom behavior upon enabling or updating the Audio Reactive Gradient face.
      */
@@ -635,7 +635,7 @@ public:
 
     /**
      * @brief Callback invoked when the Oscilloscope face is enabled/updated.
-     * 
+     *
      * This method is pure virtual and must be implemented by the derived class
      * to define custom behavior upon enabling or updating the Oscilloscope face.
      */
