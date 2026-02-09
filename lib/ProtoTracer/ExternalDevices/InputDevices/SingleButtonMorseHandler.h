@@ -93,6 +93,14 @@ public:
     static void Update();
 
     /**
+     * @brief Sets the current value of a specific menu.
+     *
+     * @param menu The menu index to set the value for.
+     * @param value The value to set.
+     */
+    static void SetMenuValue(uint8_t menu, uint8_t value);
+
+    /**
      * @brief Retrieves the current value of a specific menu.
      *
      * @param menu The menu index to retrieve the value from.

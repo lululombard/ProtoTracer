@@ -14,9 +14,7 @@
 #include "../../Assets/Models/OBJ/Background.h"
 #include "../../ExternalDevices/InputDevices/Menu/Menu.h"
 #include "../../ExternalDevices/Sensors/APDS9960.h"
-#include "../../ExternalDevices/Displays/SSD1306.h"
 #include "../../ExternalDevices/Sensors/Microphone/MicrophoneFourier_MAX9814.h"
-#include "../../ExternalDevices/OutputDevices/FanController.h"
 
 #include "../../Scene/Materials/Utils/MaterialAnimator.h"
 #include "../../Scene/Materials/Static/SimpleMaterial.h"
@@ -120,8 +118,8 @@ private:
     /**
      * @brief Material animators for face and background layering.
      */
-    MaterialAnimator<20> materialAnimator;   ///< Handles layering of face materials.
-    MaterialAnimator<20> backgroundMaterial; ///< Handles layering of background materials.
+    MaterialAnimator<15> materialAnimator;   ///< Handles layering of face materials.
+    MaterialAnimator<15> backgroundMaterial; ///< Handles layering of background materials.
 
     /**
      * @brief Audio-reactive materials.
@@ -146,10 +144,6 @@ private:
     FunctionGenerator fGenMatXMove = FunctionGenerator(FunctionGenerator::Sine, -2.0f, 2.0f, 5.3f);
     FunctionGenerator fGenMatYMove = FunctionGenerator(FunctionGenerator::Sine, -2.0f, 2.0f, 6.7f);
 
-    /**
-     * @brief Fan controller for controlling a fan's PWM.
-     */
-    FanController fanController = FanController(15);
 
     /**
      * @brief Gesture sensor used for detecting "boops."
@@ -233,12 +227,8 @@ protected:
     /**
      * @brief Animator that eases parameter transitions.
      */
-    EasyEaseAnimator<60> eEA = EasyEaseAnimator<60>(IEasyEaseAnimator::Overshoot, 1.0f, 0.35f);
+    EasyEaseAnimator<25> eEA = EasyEaseAnimator<25>(IEasyEaseAnimator::Overshoot, 1.0f, 0.35f);
 
-    /**
-     * @brief Heads-up display (HUD) for the face overlay or additional data.
-     */
-    HeadsUpDisplay hud = HeadsUpDisplay(Vector2D(0.0f, 0.0f), Vector2D(192.0f, 96.0f));
 
     /**
      * @brief Links external or user-defined control parameters (pure virtual to be implemented).

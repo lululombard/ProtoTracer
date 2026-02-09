@@ -156,6 +156,13 @@ void MenuHandler<menuCount>::SetMenuMax(uint8_t menu, uint8_t maxValue) {
 }
 
 template <uint8_t menuCount>
+void MenuHandler<menuCount>::SetMenuValue(uint8_t menu, uint8_t value) {
+    if (menu >= menuCount) return;
+    if (value >= maxValue[menu]) value = maxValue[menu] - 1;
+    currentValue[menu] = value;
+}
+
+template <uint8_t menuCount>
 uint8_t MenuHandler<menuCount>::GetMenuValue(uint8_t menu) {
     return currentValue[menu];
 }

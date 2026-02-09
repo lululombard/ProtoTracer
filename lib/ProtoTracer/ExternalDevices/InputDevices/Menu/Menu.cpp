@@ -125,6 +125,10 @@ void Menu::Initialize(uint8_t faceCount, uint8_t pin, uint16_t holdingTime, Vect
     isSecondary = false;
 
     effectChange.AddParameter(&effectStrength);
+
+#ifdef SERIALMENU
+    SerialMenuController::Initialize();
+#endif
 }
 
 void Menu::Initialize(uint8_t faceCount, Vector2D size) {
@@ -150,6 +154,10 @@ void Menu::Initialize(uint8_t faceCount, Vector2D size) {
 #endif
 
     SetMaxEntries();
+
+#ifdef SERIALMENU
+    SerialMenuController::Initialize();
+#endif
 }
 
 Material* Menu::GetMaterial() {
@@ -208,6 +216,10 @@ void Menu::SetCurrentMenu(uint8_t currentMenu) {
 void Menu::Update(float ratio) {
 #if defined NEOTRELLISMENU || defined MORSEBUTTON
     MenuHandler<menuCount>::Update();
+#endif
+
+#ifdef SERIALMENU
+    SerialMenuController::Update();
 #endif
 
     float target = 0.0f;

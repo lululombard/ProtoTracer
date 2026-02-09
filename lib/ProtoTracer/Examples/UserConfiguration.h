@@ -60,3 +60,15 @@
 #if DOXYGEN
 #define MORSEBUTTON
 #endif
+
+/**
+ * @def SERIALMENU
+ * @brief Define this macro to enable serial control of menu parameters via Serial4.
+ *
+ * When enabled, an external device (e.g., ESP32) can read and set menu values
+ * over Serial4 using a simple text protocol (SET/GET commands at 115200 baud).
+ */
+#define SERIALMENU
+#if DOXYGEN
+#define SERIALMENU
+#endif

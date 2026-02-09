@@ -38,6 +38,10 @@
 #include "../SingleButtonMenuHandler.h"
 #endif
 
+#ifdef SERIALMENU
+#include "../SerialSynchronization/SerialMenuController.h"
+#endif
+
 /**
  * @class Menu
  * @brief A class responsible for displaying and controlling a parameter menu within

@@ -88,18 +88,12 @@ void ProtogenProject::UpdateFace(float ratio) {
 
     Menu::Update(ratio);
 
-    fanController.SetPWM(Menu::GetFanSpeed() * 25);
-    
     xOffset = fGenMatXMove.Update();
     yOffset = fGenMatYMove.Update();
     
     if (Menu::UseBoopSensor()) {
         isBooped = boop.isBooped();
     }
-
-    hud.SetEffect(Menu::GetEffect());// Pull Effect from menu and store reference in hud for observing data
-    hud.Update();
-    this->scene.SetEffect(&hud);// Use HUD as effect for overlay/data extraction
 
     voiceDetection.SetThreshold(map(Menu::GetMicLevel(), 0, 10, 1000, 50));
     UpdateFFTVisemes();
@@ -533,7 +527,6 @@ ProtogenProject::ProtogenProject(CameraManager* cameras, Controller* controller,
     objA.SetCameraMin(camMin);
     objA.SetJustification(ObjectAlign::Stretch);
     
-    this->scene.EnableEffect();
 
     cameraSize = camMax - camMin;
 
@@ -550,18 +543,12 @@ ProtogenProject::ProtogenProject(CameraManager* cameras, Controller* controller,
     oSC.SetSize(Vector2D(220.0f, 72.0f));
     oSC.SetPosition(Vector2D());
 
-    hud.SetFaceMax(camMax);
-    hud.SetFaceMin(camMin);
 }
 
 void ProtogenProject::Initialize() {
     controller->Initialize();
 
     boop.Initialize(5);
-
-    hud.Initialize();
-
-    fanController.Initialize();
 
     MicrophoneFourier::Initialize(microphonePin, 8000, 50.0f, 120.0f);//8KHz sample rate, 50dB min, 120dB max
     

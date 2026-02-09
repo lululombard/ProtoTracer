@@ -4,7 +4,7 @@ SerialTransfer SerialSync::dataTransfer;
 SerialSync::Data SerialSync::data;
 
 void SerialSync::Initialize() {
-    Serial4.begin(115200);
+    Serial4.begin(921600);
     dataTransfer.begin(Serial4, false);  // _debug = true
 }
 

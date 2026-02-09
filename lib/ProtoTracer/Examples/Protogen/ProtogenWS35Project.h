@@ -12,8 +12,6 @@ private:
     WS35Controller controller = WS35Controller(&cameras, 50);
     NukudeFace pM;
     
-	const __FlashStringHelper* faceArray[10] = {F("DEFAULT"), F("ANGRY"), F("DOUBT"), F("FROWN"), F("LOOKUP"), F("SAD"), F("AUDIO1"), F("AUDIO2"), F("AUDIO3")};
-
     void LinkControlParameters() override {
         AddParameter(NukudeFace::Anger, pM.GetMorphWeightReference(NukudeFace::Anger), 15);
         AddParameter(NukudeFace::Sadness, pM.GetMorphWeightReference(NukudeFace::Sadness), 15, IEasyEaseAnimator::InterpolationMethod::Cosine);
@@ -90,8 +88,6 @@ public:
         pM.GetObject()->SetMaterial(GetFaceMaterial());
 
         LinkControlParameters();
-
-        hud.SetFaceArray(faceArray);
 
         SetWiggleSpeed(5.0f);
         SetMenuWiggleSpeed(0.0f, 0.0f, 0.0f);
