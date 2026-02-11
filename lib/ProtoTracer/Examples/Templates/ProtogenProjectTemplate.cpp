@@ -112,8 +112,8 @@ void ProtogenProject::UpdateFace(float ratio) {
     oSC.SetHueAngle(ratio * 360.0f * 8.0f);
     
     SetMaterialColor();
-    RGBColor hueFront = RGBColor(255, 0, 0).HueShift(Menu::GetHueF() * 36);
-    RGBColor hueBack  = RGBColor(255, 0, 0).HueShift(Menu::GetHueB() * 36);
+    RGBColor hueFront = RGBColor(255, 0, 0).HueShift(Menu::GetHueF());
+    RGBColor hueBack  = RGBColor(255, 0, 0).HueShift(Menu::GetHueB());
 
     gradientSpectrum[0] = hueFront;
     gradientSpectrum[1] = hueBack;
@@ -516,7 +516,7 @@ ProtogenProject::ProtogenProject(CameraManager* cameras, Controller* controller,
     this->faceCount = faceCount;
 
     this->scene.AddObject(background.GetObject());
-    
+
     background.GetObject()->SetMaterial(&backgroundMaterial);
 
     LinkParameters();

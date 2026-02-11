@@ -33,8 +33,8 @@ private:
     static long previousMillisHold; ///< Tracks the last hold event time in milliseconds.
     static uint16_t holdingTime; ///< Time threshold for detecting holding behavior in milliseconds.
     static uint8_t currentMenu; ///< Index of the currently active menu.
-    static uint8_t currentValue[menuCount]; ///< Array of current values for each menu.
-    static uint8_t maxValue[menuCount]; ///< Array of maximum values for each menu.
+    static uint16_t currentValue[menuCount]; ///< Array of current values for each menu.
+    static uint16_t maxValue[menuCount]; ///< Array of maximum values for each menu.
     static uint8_t pin; ///< The pin number associated with the button.
     static bool holdingState; ///< Indicates whether the button is in a holding state.
     static bool previousState; ///< Tracks the previous state of the button.
@@ -50,7 +50,7 @@ private:
      * @param index The EEPROM address to read from.
      * @return The value read from EEPROM.
      */
-    static uint8_t ReadEEPROM(uint16_t index);
+    static uint16_t ReadEEPROM(uint16_t index);
 
     /**
      * @brief Writes a value to EEPROM at the specified index.
@@ -58,7 +58,7 @@ private:
      * @param index The EEPROM address to write to.
      * @param value The value to write to EEPROM.
      */
-    static void WriteEEPROM(uint16_t index, uint8_t value);
+    static void WriteEEPROM(uint16_t index, uint16_t value);
 
 public:
     /**
@@ -81,7 +81,7 @@ public:
      * @param menu The menu index to set the default value for.
      * @param value The default value to set.
      */
-    static void SetDefaultValue(uint16_t menu, uint8_t value);
+    static void SetDefaultValue(uint16_t menu, uint16_t value);
 
     /**
      * @brief Marks the menu system as initialized.
@@ -94,7 +94,7 @@ public:
      * @param menu The menu index to set the maximum value for.
      * @param maxValue The maximum value to set.
      */
-    static void SetMenuMax(uint8_t menu, uint8_t maxValue);
+    static void SetMenuMax(uint8_t menu, uint16_t maxValue);
 
     /**
      * @brief Sets the current value of a specific menu.
@@ -102,7 +102,7 @@ public:
      * @param menu The menu index to set the value for.
      * @param value The value to set.
      */
-    static void SetMenuValue(uint8_t menu, uint8_t value);
+    static void SetMenuValue(uint8_t menu, uint16_t value);
 
     /**
      * @brief Retrieves the current value of a specific menu.
@@ -110,7 +110,7 @@ public:
      * @param menu The menu index to retrieve the value from.
      * @return The current value of the menu.
      */
-    static uint8_t GetMenuValue(uint8_t menu);
+    static uint16_t GetMenuValue(uint8_t menu);
 
     /**
      * @brief Retrieves the index of the currently active menu.

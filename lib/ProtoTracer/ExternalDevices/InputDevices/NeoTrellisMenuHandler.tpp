@@ -7,9 +7,9 @@ uint8_t MenuHandler<menuCount>::currentMenu;
 template <uint8_t menuCount>
 uint8_t MenuHandler<menuCount>::currentSetting = 0;
 template <uint8_t menuCount>
-uint8_t MenuHandler<menuCount>::currentValue[menuCount];
+uint16_t MenuHandler<menuCount>::currentValue[menuCount];
 template <uint8_t menuCount>
-uint8_t MenuHandler<menuCount>::maxValue[menuCount];
+uint16_t MenuHandler<menuCount>::maxValue[menuCount];
 template <uint8_t menuCount>
 uint8_t MenuHandler<menuCount>::faceChoices = 0;
 template <uint8_t menuCount>
@@ -77,13 +77,16 @@ TrellisCallback MenuHandler<menuCount>::blink(keyEvent evt) {
 }
 
 template <uint8_t menuCount>
-uint8_t MenuHandler<menuCount>::ReadEEPROM(uint16_t index) {
-    return EEPROM.read(index);
+uint16_t MenuHandler<menuCount>::ReadEEPROM(uint16_t index) {
+    uint16_t addr = index * 2;
+    return EEPROM.read(addr) | (EEPROM.read(addr + 1) << 8);
 }
 
 template <uint8_t menuCount>
-void MenuHandler<menuCount>::WriteEEPROM(uint16_t index, uint8_t value) {
-    EEPROM.write(index, value);
+void MenuHandler<menuCount>::WriteEEPROM(uint16_t index, uint16_t value) {
+    uint16_t addr = index * 2;
+    EEPROM.write(addr, value & 0xFF);
+    EEPROM.write(addr + 1, (value >> 8) & 0xFF);
 }
 
 template <uint8_t menuCount>
@@ -135,7 +138,7 @@ bool MenuHandler<menuCount>::Initialize() {
 }
 
 template <uint8_t menuCount>
-void MenuHandler<menuCount>::SetDefaultValue(uint16_t menu, uint8_t value) {
+void MenuHandler<menuCount>::SetDefaultValue(uint16_t menu, uint16_t value) {
     if (menu >= menuCount) return;
 
     currentValue[menu] = value;
@@ -149,21 +152,21 @@ void MenuHandler<menuCount>::SetInitialized() {
 }
 
 template <uint8_t menuCount>
-void MenuHandler<menuCount>::SetMenuMax(uint8_t menu, uint8_t maxValue) {
+void MenuHandler<menuCount>::SetMenuMax(uint8_t menu, uint16_t maxValue) {
     if (menu >= menuCount) return;
 
     MenuHandler::maxValue[menu] = maxValue;
 }
 
 template <uint8_t menuCount>
-void MenuHandler<menuCount>::SetMenuValue(uint8_t menu, uint8_t value) {
+void MenuHandler<menuCount>::SetMenuValue(uint8_t menu, uint16_t value) {
     if (menu >= menuCount) return;
     if (value >= maxValue[menu]) value = maxValue[menu] - 1;
     currentValue[menu] = value;
 }
 
 template <uint8_t menuCount>
-uint8_t MenuHandler<menuCount>::GetMenuValue(uint8_t menu) {
+uint16_t MenuHandler<menuCount>::GetMenuValue(uint8_t menu) {
     return currentValue[menu];
 }
 

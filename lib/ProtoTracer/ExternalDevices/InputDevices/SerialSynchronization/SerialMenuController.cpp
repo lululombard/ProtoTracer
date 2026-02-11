@@ -93,7 +93,7 @@ void SerialMenuController::ProcessCommand(const char* cmd) {
             return;
         }
 
-        uint8_t value = (uint8_t)atoi(valueStr);
+        uint16_t value = (uint16_t)atoi(valueStr);
         MenuHandler<kMenuCount>::SetMenuValue(param, value);
         SendValue(param);
 

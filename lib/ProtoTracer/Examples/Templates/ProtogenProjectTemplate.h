@@ -101,7 +101,7 @@ private:
     RainbowSpiral rainbowSpiral;       ///< Spiral rainbow animated material.
     HorizontalRainbow hRainbow;        ///< Horizontal rainbow animated material.
     SimpleMaterial redMaterial    = SimpleMaterial(RGBColor(255, 0, 0));   ///< Solid red material.
-    SimpleMaterial orangeMaterial = SimpleMaterial(RGBColor(255, 140, 0)); ///< Solid orange material.
+    SimpleMaterial orangeMaterial = SimpleMaterial(RGBColor(255, 165, 0)); ///< Solid orange material.
     SimpleMaterial whiteMaterial  = SimpleMaterial(RGBColor(255, 255, 255)); ///< Solid white material.
     SimpleMaterial greenMaterial  = SimpleMaterial(RGBColor(0, 255, 0));   ///< Solid green material.
     SimpleMaterial blueMaterial   = SimpleMaterial(RGBColor(0, 0, 255));   ///< Solid blue material.

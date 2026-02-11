@@ -31,9 +31,6 @@
 #include "../Sensors/SerialSync.h"
 #include "../Filter/KalmanFilter.h"
 
-#ifdef FRONTFACE
-#include "../Sensors/SSD1306.h"
-#endif
 
 //0x28, 0x39, 0x3C
 
@@ -82,10 +79,6 @@ private:
 
     APDS9960 forehead;
     SHARPGP2Y boop = SHARPGP2Y(A9);
-    #ifdef FRONTFACE
-    SSD1306 oledDisplay;
-    #endif
-
     FFTVoiceDetection<128> voiceDetection;
 
     float offsetFace = 0.0f;
@@ -319,9 +312,6 @@ public:
 
     void Initialize() override {
         forehead.Initialize(5);
-        #ifdef FRONTFACE
-        oledDisplay.Initialize();
-        #endif
 
         SerialSync::Initialize();
         MicrophoneFourierIT::Initialize(22, 8000, 50.0f, 120.0f);//8KHz sample rate, 50dB min, 120dB max
@@ -332,9 +322,6 @@ public:
         Menu::Initialize(9, Vector2D(380.0f, 180.0f));//7 is number of faces
         #endif
         
-        #ifdef FRONTFACE
-        oledDisplay.Display();
-        #endif
     }
 
     void FadeIn(float stepRatio) override {}

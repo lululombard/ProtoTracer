@@ -10,8 +10,6 @@
 #include "../../Signals/FunctionGenerator.h"
 #include "../../Menu/Menu.h"
 #include "../../Sensors/APDS9960.h"
-#include "../../Sensors/SSD1306.h"
-
 #include "../../Materials/Animated/RainbowNoise.h"
 #include "../../Materials/Animated/RainbowSpiral.h"
 #include "../../Materials/Animated/SpectrumAnalyzer.h"
@@ -70,8 +68,6 @@ private:
 
     FunctionGenerator sineSidePanel = FunctionGenerator(FunctionGenerator::Sine, 0.0f, 1.0f, 3.0f);
     APDS9960 boop;
-    
-    SSD1306 oledDisplay;
 
     FFTVoiceDetection<128> voiceDetection;
 
@@ -138,53 +134,44 @@ private:
 
     
     void Default(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Default"));
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
 
     void Squint(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Squint"));
         eEA.AddParameterFrame(ProtoV2::Squint, 1.0f);
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
 
     void Surprised(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Surprised"));
         eEA.AddParameterFrame(ProtoV2::Surprised, 1.0f);
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
 
     void Happy(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Happy"));
         eEA.AddParameterFrame(ProtoV2::Happy, 1.0f);
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
 
     void Sad(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Sad"));
         eEA.AddParameterFrame(ProtoV2::Sad, 1.0f);
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
 
     void Whoop(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Whoop"));
         eEA.AddParameterFrame(ProtoV2::Whoop, 1.0f);
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
     
     void Angry(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Angry"));
         eEA.AddParameterFrame(ProtoV2::Angry, 1.0f);
         eEA.AddParameterFrame(ProtoV2::Hideblush, 1.0f);
     }
 
     void Blush(){
-        oledDisplay.Display(F("Animating..."), F("Face: "), F("Blush"));
         eEA.AddParameterFrame(ProtoV2::Blush, 1.0f);
     }
 
     void SpectrumAnalyzerFace(){
-        oledDisplay.Display(F("Animating..."), F("Audio: "), F("Fourier"));
         eEA.AddParameterFrame(offsetFaceInd, 1.0f);
         eEA.AddParameterFrame(offsetFaceIndSA, 1.0f);
 
@@ -192,7 +179,6 @@ private:
     }
 
     void AudioReactiveGradientFace(){
-        oledDisplay.Display(F("Animating..."), F("Audio: "), F("Round"));
         eEA.AddParameterFrame(offsetFaceInd, 1.0f);
         eEA.AddParameterFrame(offsetFaceIndARG, 1.0f);
 
@@ -200,7 +186,6 @@ private:
     }
 
     void OscilloscopeFace(){
-        oledDisplay.Display(F("Animating..."), F("Audio: "), F("Oscillo"));
         eEA.AddParameterFrame(offsetFaceInd, 1.0f);
         eEA.AddParameterFrame(offsetFaceIndOSC, 1.0f);
 
@@ -258,7 +243,6 @@ public:
         background.GetObject()->SetMaterial(&backgroundMaterial);
 
         boop.Initialize(5);
-        oledDisplay.Initialize();
 
         MicrophoneFourierIT::Initialize(22, 8000, 50.0f, 120.0f);//8KHz sample rate, 50dB min, 120dB max
         Menu::Initialize(10, 15, 500);//7 is number of faces

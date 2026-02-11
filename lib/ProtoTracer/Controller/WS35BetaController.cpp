@@ -58,17 +58,17 @@ void WS35BetaController::SetPixels(uint8_t strip, uint16_t led, RGBColor rgb){
 }
 
 void WS35BetaController::SetBrightness(uint8_t maxBrightness){
-    this->maxBrightness = maxBrightness * 25 + 5;
-    
+    this->maxBrightness = maxBrightness;
+
     if(isOn){//past soft start
-        this->brightness = maxBrightness * 25 + 5;
+        this->brightness = maxBrightness;
     }
 }
 
 void WS35BetaController::SetAccentBrightness(uint8_t maxAccentBrightness){
-    this->maxAccentBrightness = maxAccentBrightness * 25 + 5;
-    
+    this->maxAccentBrightness = maxAccentBrightness;
+
     if(isOn){//past soft start
-        this->accentBrightness = maxAccentBrightness * 25 + 5;
+        this->accentBrightness = maxAccentBrightness;
     }
 }

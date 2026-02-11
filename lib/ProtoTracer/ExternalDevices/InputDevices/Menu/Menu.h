@@ -152,8 +152,8 @@ private:
     static uint8_t spectrumMirror;  ///< Spectrum mirroring toggle.
     static uint8_t faceSize;        ///< Face size setting.
     static uint8_t color;           ///< Current color setting.
-    static uint8_t huef;            ///< Front hue setting.
-    static uint8_t hueb;            ///< Back hue setting.
+    static uint16_t huef;            ///< Front hue setting (0-359).
+    static uint16_t hueb;            ///< Back hue setting (0-359).
     static uint8_t effect;          ///< Current effect index.
     static uint8_t fanSpeed;        ///< Fan speed setting.
 
@@ -244,7 +244,7 @@ public:
      * @brief Gets the current value of the active menu parameter from the MenuHandler.
      * @return The parameter value associated with the active menu index.
      */
-    static uint8_t GetCurrentMenuValue();
+    static uint16_t GetCurrentMenuValue();
 
     /**
      * @brief Manually sets the current menu index (used in isSecondary mode).
@@ -328,7 +328,7 @@ public:
      * @param selection The currently selected option.
      * @return A String containing spaced/arranged characters for the menu display.
      */
-    static String GenerateLine(uint8_t options, uint8_t selection);
+    static String GenerateLine(uint16_t options, uint16_t selection);
 
     /**
      * @brief Generates the textual representation of the menu (two lines) and
@@ -446,27 +446,27 @@ public:
 
     /**
      * @brief Sets the front hue value if in isSecondary mode.
-     * @param huef The new front hue (0-10).
+     * @param huef The new front hue (0-359).
      */
-    static void SetHueF(uint8_t huef);
+    static void SetHueF(uint16_t huef);
 
     /**
      * @brief Gets the front hue value.
-     * @return The front hue (0-10).
+     * @return The front hue (0-359).
      */
-    static uint8_t GetHueF();
+    static uint16_t GetHueF();
 
     /**
      * @brief Sets the back hue value if in isSecondary mode.
-     * @param hueb The new back hue (0-10).
+     * @param hueb The new back hue (0-359).
      */
-    static void SetHueB(uint8_t hueb);
+    static void SetHueB(uint16_t hueb);
 
     /**
      * @brief Gets the back hue value.
-     * @return The back hue (0-10).
+     * @return The back hue (0-359).
      */
-    static uint8_t GetHueB();
+    static uint16_t GetHueB();
 
     /**
      * @brief Sets which effect is selected if in isSecondary mode.

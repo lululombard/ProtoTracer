@@ -56,17 +56,17 @@ void HUB75ControllerSplit::Display(){
 }
 
 void HUB75ControllerSplit::SetBrightness(uint8_t maxBrightness){
-    this->maxBrightness = maxBrightness * 25 + 5;
-    
+    this->maxBrightness = maxBrightness;
+
     if(isOn){//past soft start
-        this->brightness = maxBrightness * 25 + 5;
+        this->brightness = maxBrightness;
     }
 }
 
 void HUB75ControllerSplit::SetAccentBrightness(uint8_t maxAccentBrightness){
-    this->maxAccentBrightness = maxAccentBrightness * 12 + 5;
-    
+    this->maxAccentBrightness = maxAccentBrightness;
+
     if(isOn){//past soft start
-        this->accentBrightness = maxAccentBrightness * 12 + 5;
+        this->accentBrightness = maxAccentBrightness;
     }
 }

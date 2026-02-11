@@ -33,8 +33,8 @@ uint8_t Menu::boopSensor = 0;
 uint8_t Menu::spectrumMirror = 0;
 uint8_t Menu::faceSize = 0;
 uint8_t Menu::color = 0;
-uint8_t Menu::huef = 0;
-uint8_t Menu::hueb = 0;
+uint16_t Menu::huef = 0;
+uint16_t Menu::hueb = 0;
 uint8_t Menu::effect = 0;
 uint8_t Menu::fanSpeed = 0;
 
@@ -66,16 +66,16 @@ void Menu::SetMaxEntries() {
 #else
     MenuHandler<menuCount>::SetMenuMax(Faces, faceCount);
 #endif
-    MenuHandler<menuCount>::SetMenuMax(Bright, 10);
-    MenuHandler<menuCount>::SetMenuMax(AccentBright, 10);
+    MenuHandler<menuCount>::SetMenuMax(Bright, 255);
+    MenuHandler<menuCount>::SetMenuMax(AccentBright, 255);
     MenuHandler<menuCount>::SetMenuMax(Microphone, 2);
     MenuHandler<menuCount>::SetMenuMax(MicLevel, 10);
     MenuHandler<menuCount>::SetMenuMax(BoopSensor, 2);
     MenuHandler<menuCount>::SetMenuMax(SpectrumMirror, 2);
     MenuHandler<menuCount>::SetMenuMax(FaceSize, 10);
     MenuHandler<menuCount>::SetMenuMax(Color, 10);
-    MenuHandler<menuCount>::SetMenuMax(HueF, 10);
-    MenuHandler<menuCount>::SetMenuMax(HueB, 10);
+    MenuHandler<menuCount>::SetMenuMax(HueF, 360);
+    MenuHandler<menuCount>::SetMenuMax(HueB, 360);
     MenuHandler<menuCount>::SetMenuMax(EffectS, 10);
     MenuHandler<menuCount>::SetMenuMax(FanSpeed, 10);
 }
@@ -83,8 +83,8 @@ void Menu::SetMaxEntries() {
 void Menu::SetDefaultEntries() {
     // Define your default entries here
     MenuHandler<menuCount>::SetDefaultValue(Faces, 0);
-    MenuHandler<menuCount>::SetDefaultValue(Bright, 3);
-    MenuHandler<menuCount>::SetDefaultValue(AccentBright, 5);
+    MenuHandler<menuCount>::SetDefaultValue(Bright, 75);
+    MenuHandler<menuCount>::SetDefaultValue(AccentBright, 127);
     MenuHandler<menuCount>::SetDefaultValue(Microphone, 1);
     MenuHandler<menuCount>::SetDefaultValue(MicLevel, 5);
     MenuHandler<menuCount>::SetDefaultValue(BoopSensor, 1);
@@ -205,7 +205,7 @@ uint8_t Menu::GetCurrentMenu(){
     return MenuHandler<menuCount>::GetCurrentMenu();
 }
 
-uint8_t Menu::GetCurrentMenuValue(){
+uint16_t Menu::GetCurrentMenuValue(){
     return MenuHandler<menuCount>::GetMenuValue(GetCurrentMenu());
 }
 
@@ -330,32 +330,42 @@ char Menu::IntToBlink(char value) {
     }
 }
 
-String Menu::GenerateLine(uint8_t options, uint8_t selection) {
+String Menu::GenerateLine(uint16_t options, uint16_t selection) {
     String text;
-    uint8_t spacing = options >= 5 ? 3 : (menuLength - options) / 2;
 
-    for (uint8_t i = 0; i < spacing; i++) {
-        text += " ";
-    }
+    if (options <= 10) {
+        uint8_t spacing = options >= 5 ? 3 : (menuLength - options) / 2;
 
-    for (uint8_t i = 0; i < 5; i++) {
-        if (selection < 5 && i < options) {
-            char value = '0' + i;
+        for (uint8_t i = 0; i < spacing; i++) {
+            text += " ";
+        }
 
-            if (i == selection) {
-                text += IntToBlink(value);
-            } else {
-                text += value;
-            }
-        } else if (selection >= 5 && i + 5 < options) {
-            char value = '5' + i;
+        for (uint8_t i = 0; i < 5; i++) {
+            if (selection < 5 && i < options) {
+                char value = '0' + i;
 
-            if (i + 5 == selection) {
-                text += IntToBlink(value);
-            } else {
-                text += value;
+                if (i == selection) {
+                    text += IntToBlink(value);
+                } else {
+                    text += value;
+                }
+            } else if (selection >= 5 && i + 5 < options) {
+                char value = '5' + i;
+
+                if (i + 5 == selection) {
+                    text += IntToBlink(value);
+                } else {
+                    text += value;
+                }
             }
         }
+    } else {
+        String numStr = String(selection);
+        uint8_t padding = (menuLength - numStr.length()) / 2;
+        for (uint8_t i = 0; i < padding; i++) {
+            text += " ";
+        }
+        text += numStr;
     }
 
     while (text.length() < menuLength) {
@@ -370,16 +380,16 @@ void Menu::GenerateText() {
 
     line2 = "            ";
 
-    line2 += GenerateLine(10, GetBrightness());
-    line2 += GenerateLine(10, GetAccentBrightness());
+    line2 += GenerateLine(255, GetBrightness());
+    line2 += GenerateLine(255, GetAccentBrightness());
     line2 += UseMicrophone() ? "   on OFF   " : "   ON off   ";
     line2 += GenerateLine(10, GetMicLevel());
     line2 += UseBoopSensor() ? "   on OFF   " : "   ON off   ";
     line2 += MirrorSpectrumAnalyzer() ? "   on OFF   " : "   ON off   ";
     line2 += GenerateLine(10, GetFaceSize());
     line2 += GenerateLine(10, GetFaceColor());
-    line2 += GenerateLine(10, GetHueF());
-    line2 += GenerateLine(10, GetHueB());
+    line2 += GenerateLine(360, GetHueF());
+    line2 += GenerateLine(360, GetHueB());
     line2 += GenerateLine(10, GetEffectS());
     line2 += GenerateLine(10, GetFanSpeed());
 
@@ -467,20 +477,20 @@ uint8_t Menu::GetFaceColor() {
     else return MenuHandler<menuCount>::GetMenuValue(Color);
 }
 
-void Menu::SetHueF(uint8_t huef) {
+void Menu::SetHueF(uint16_t huef) {
     Menu::huef = huef;
 }
 
-uint8_t Menu::GetHueF() {
+uint16_t Menu::GetHueF() {
     if (isSecondary) return huef;
     else return MenuHandler<menuCount>::GetMenuValue(HueF);
 }
 
-void Menu::SetHueB(uint8_t hueb) {
+void Menu::SetHueB(uint16_t hueb) {
     Menu::hueb = hueb;
 }
 
-uint8_t Menu::GetHueB() {
+uint16_t Menu::GetHueB() {
     if (isSecondary) return hueb;
     else return MenuHandler<menuCount>::GetMenuValue(HueB);
 }

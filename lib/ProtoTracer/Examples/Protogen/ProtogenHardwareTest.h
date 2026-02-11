@@ -3,7 +3,6 @@
 #include <Arduino.h>
 #include <Adafruit_APDS9960.h>
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include <APDS9930.h>
 #include "Adafruit_NeoTrellis.h"
 
@@ -144,45 +143,6 @@ private:
         Wire.end();
     }
 
-    static void TestSSD1306(uint8_t address, bool flip){
-        Wire.setClock(100000);//for longer range transmissions
-        
-        if(flip){
-            Wire.setSDA(19);
-            Wire.setSCL(18);
-        }
-        else{
-            Wire.setSDA(18);
-            Wire.setSCL(19);
-        }
-
-        Wire.begin();
-
-		Wire.beginTransmission(address);
-
-	    Adafruit_SSD1306 display;
-
-		display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-
-        // Clear the buffer and display
-        display.clearDisplay();
-        display.invertDisplay(true);
-        display.display();
-        
-        // Draw some shapes and text
-        display.setTextSize(1);
-        display.setTextColor(SSD1306_WHITE);
-        display.setCursor(0, 0);
-        display.println(F("Hello, SSD1306!"));
-
-        display.drawRect(10, 10, 20, 20, SSD1306_WHITE);
-        display.fillCircle(60, 30, 15, SSD1306_WHITE);
-
-        display.display(); // Display the buffer content
-		
-        Wire.end();
-    }
-    
     static Adafruit_NeoTrellis trellis;
 
     //define a callback for key presses
@@ -270,9 +230,6 @@ public:
     }
 
     static void TestHUD(){
-        bool test1 = TestI2CConnection(0x3C, "SSD1306", false);
-
-        if (test1) TestSSD1306(0x3C, false);
     }
 
     static void TestBoopSensor(){
