@@ -73,7 +73,7 @@ void Menu::SetMaxEntries() {
     MenuHandler<menuCount>::SetMenuMax(BoopSensor, 2);
     MenuHandler<menuCount>::SetMenuMax(SpectrumMirror, 2);
     MenuHandler<menuCount>::SetMenuMax(FaceSize, 10);
-    MenuHandler<menuCount>::SetMenuMax(Color, 10);
+    MenuHandler<menuCount>::SetMenuMax(Color, 13);
     MenuHandler<menuCount>::SetMenuMax(HueF, 360);
     MenuHandler<menuCount>::SetMenuMax(HueB, 360);
     MenuHandler<menuCount>::SetMenuMax(EffectS, 10);

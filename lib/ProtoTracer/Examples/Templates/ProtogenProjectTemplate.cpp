@@ -20,10 +20,11 @@ void ProtogenProject::SetMaterialLayers(){
     materialAnimator.AddMaterial(Material::Replace, &purpleMaterial, 40, 0.0f, 1.0f);//layer 5
     materialAnimator.AddMaterial(Material::Replace, &redMaterial, 40, 0.0f, 1.0f);//layer 6
     materialAnimator.AddMaterial(Material::Replace, &blueMaterial, 40, 0.0f, 1.0f);//layer 7
-    materialAnimator.AddMaterial(Material::Replace, &flowNoise, 40, 0.15f, 1.0f);//layer 8
-    materialAnimator.AddMaterial(Material::Replace, &rainbowSpiral, 40, 0.0f, 1.0f);//layer 9
-    materialAnimator.AddMaterial(Material::Replace, &hRainbow, 40, 0.0f, 1.0f);//layer 10
-    materialAnimator.AddMaterial(Material::Replace, &blackMaterial, 40, 0.0f, 1.0f);//layer 11
+    materialAnimator.AddMaterial(Material::Replace, &rainbowSpiral, 40, 0.0f, 1.0f);//layer 8
+    materialAnimator.AddMaterial(Material::Replace, &rainbowNoise, 40, 0.0f, 1.0f);//layer 9
+    materialAnimator.AddMaterial(Material::Replace, &flowNoise, 40, 0.15f, 1.0f);//layer 10
+    materialAnimator.AddMaterial(Material::Replace, &hRainbow, 40, 0.0f, 1.0f);//layer 11
+    materialAnimator.AddMaterial(Material::Replace, &blackMaterial, 40, 0.0f, 1.0f);//layer 12
     materialAnimator.AddMaterial(Material::Replace, &sA, 20, 0.0f, 1.0f);
     materialAnimator.AddMaterial(Material::Replace, &aRG, 20, 0.0f, 1.0f);
     materialAnimator.AddMaterial(Material::Replace, &oSC, 20, 0.0f, 1.0f);
@@ -36,10 +37,11 @@ void ProtogenProject::SetMaterialLayers(){
     backgroundMaterial.AddMaterial(Material::Replace, &purpleMaterial, 40, 0.0f, 1.0f);//layer 5
     backgroundMaterial.AddMaterial(Material::Replace, &redMaterial, 40, 0.0f, 1.0f);//layer 6
     backgroundMaterial.AddMaterial(Material::Replace, &blueMaterial, 40, 0.0f, 1.0f);//layer 7
-    backgroundMaterial.AddMaterial(Material::Replace, &flowNoise, 40, 0.0f, 1.0f);//layer 8
-    backgroundMaterial.AddMaterial(Material::Replace, &rainbowSpiral, 40, 0.0f, 1.0f);//layer 9
-    backgroundMaterial.AddMaterial(Material::Replace, &hRainbow, 40, 0.0f, 1.0f);//layer 10
-    backgroundMaterial.AddMaterial(Material::Replace, &blackMaterial, 40, 0.0f, 1.0f);//layer 11
+    backgroundMaterial.AddMaterial(Material::Replace, &rainbowSpiral, 40, 0.0f, 1.0f);//layer 8
+    backgroundMaterial.AddMaterial(Material::Replace, &rainbowNoise, 40, 0.0f, 1.0f);//layer 9
+    backgroundMaterial.AddMaterial(Material::Replace, &flowNoise, 40, 0.0f, 1.0f);//layer 10
+    backgroundMaterial.AddMaterial(Material::Replace, &hRainbow, 40, 0.0f, 1.0f);//layer 11
+    backgroundMaterial.AddMaterial(Material::Replace, &blackMaterial, 40, 0.0f, 1.0f);//layer 12
     backgroundMaterial.AddMaterial(Material::Add, &sA, 20, 0.0f, 1.0f);
     backgroundMaterial.AddMaterial(Material::Add, &aRG, 20, 0.0f, 1.0f);
     backgroundMaterial.AddMaterial(Material::Add, &oSC, 20, 0.0f, 1.0f);
@@ -76,9 +78,10 @@ void ProtogenProject::SetMaterialColor(){
         case 6: materialAnimator.AddMaterialFrame(redMaterial, 0.8f); break;
         case 7: materialAnimator.AddMaterialFrame(blueMaterial, 0.8f); break;
         case 8: materialAnimator.AddMaterialFrame(rainbowSpiral, 0.8f); break;
-        case 9: materialAnimator.AddMaterialFrame(flowNoise, 0.8f); break;
-        case 10: materialAnimator.AddMaterialFrame(hRainbow, 0.8f); break;
-        case 11: materialAnimator.AddMaterialFrame(blackMaterial, 0.8f); break;
+        case 9: materialAnimator.AddMaterialFrame(rainbowNoise, 0.8f); break;
+        case 10: materialAnimator.AddMaterialFrame(flowNoise, 0.8f); break;
+        case 11: materialAnimator.AddMaterialFrame(hRainbow, 0.8f); break;
+        case 12: materialAnimator.AddMaterialFrame(blackMaterial, 0.8f); break;
         default: break;
     }
 }
@@ -127,6 +130,7 @@ void ProtogenProject::UpdateFace(float ratio) {
     eEA.Update();
     
     flowNoise.Update(ratio);
+    rainbowNoise.Update(ratio);
     rainbowSpiral.Update(ratio);
     hRainbow.Update(ratio);
     materialAnimator.Update();
@@ -360,6 +364,9 @@ void ProtogenProject::AddMaterialFrame(Color color, float opacity){
             materialAnimator.AddMaterialFrame(rainbowSpiral, opacity);
             break;
         case CRAINBOWNOISE:
+            materialAnimator.AddMaterialFrame(rainbowNoise, opacity);
+            break;
+        case CFLOWNOISE:
             materialAnimator.AddMaterialFrame(flowNoise, opacity);
             break;
         case CHORIZONTALRAINBOW:
@@ -408,6 +415,9 @@ void ProtogenProject::AddBackgroundMaterialFrame(Color color, float opacity){
             backgroundMaterial.AddMaterialFrame(rainbowSpiral, opacity);
             break;
         case CRAINBOWNOISE:
+            backgroundMaterial.AddMaterialFrame(rainbowNoise, opacity);
+            break;
+        case CFLOWNOISE:
             backgroundMaterial.AddMaterialFrame(flowNoise, opacity);
             break;
         case CHORIZONTALRAINBOW:

@@ -98,6 +98,7 @@ private:
 
     // --- Materials ---
     FlowNoise flowNoise;               ///< Noise-based animated material.
+    RainbowNoise rainbowNoise;         ///< Rainbow simplex noise material.
     RainbowSpiral rainbowSpiral;       ///< Spiral rainbow animated material.
     HorizontalRainbow hRainbow;        ///< Horizontal rainbow animated material.
     SimpleMaterial redMaterial    = SimpleMaterial(RGBColor(255, 0, 0));   ///< Solid red material.
@@ -118,8 +119,8 @@ private:
     /**
      * @brief Material animators for face and background layering.
      */
-    MaterialAnimator<15> materialAnimator;   ///< Handles layering of face materials.
-    MaterialAnimator<15> backgroundMaterial; ///< Handles layering of background materials.
+    MaterialAnimator<16> materialAnimator;   ///< Handles layering of face materials.
+    MaterialAnimator<16> backgroundMaterial; ///< Handles layering of background materials.
 
     /**
      * @brief Audio-reactive materials.
@@ -219,7 +220,8 @@ protected:
         CRED,               ///< Red color.
         CBLUE,              ///< Blue color.
         CRAINBOW,           ///< Rainbow spiral.
-        CRAINBOWNOISE,      ///< Flow noise (rainbow noise).
+        CRAINBOWNOISE,      ///< Rainbow simplex noise.
+        CFLOWNOISE,         ///< Flow noise (lava lamp effect).
         CHORIZONTALRAINBOW, ///< Horizontal rainbow effect.
         CBLACK              ///< Black color.
     };
