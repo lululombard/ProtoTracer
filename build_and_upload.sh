@@ -10,7 +10,7 @@ cd "$SCRIPT_DIR"
 killall teensy || true
 
 # Build and upload (shows Teensy uploader GUI on the displays)
-DISPLAY=:0 ../env/bin/pio run -t upload -e teensy40ws35
+DISPLAY=:0 ../../env/bin/pio run -t upload -e teensy40ws35
 
 # Wait for upload to complete, then kill the uploader UI
 sleep 15
