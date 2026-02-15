@@ -125,6 +125,12 @@ void SerialMenuController::ProcessCommand(const char* cmd) {
         Serial4.println("OK SAVED");
 
     }
+    else if (strcasecmp(token, "RESTART") == 0) {
+        Serial4.println("OK RESTARTING");
+        Serial4.flush();
+        delay(10);
+        SCB_AIRCR = 0x05FA0004;  // ARM Cortex-M system reset
+    }
     else {
         Serial4.print("ERR UNKNOWN CMD: ");
         Serial4.println(token);
