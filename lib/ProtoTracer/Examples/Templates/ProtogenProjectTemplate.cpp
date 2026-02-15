@@ -98,6 +98,12 @@ void ProtogenProject::UpdateFace(float ratio) {
         isBooped = boop.isBooped();
     }
 
+    if (isBooped != wasBooped) {
+        wasBooped = isBooped;
+        Serial4.print("BOOPED=");
+        Serial4.println(isBooped ? 1 : 0);
+    }
+
     voiceDetection.SetThreshold(map(Menu::GetMicLevel(), 0, 10, 1000, 50));
     UpdateFFTVisemes();
 

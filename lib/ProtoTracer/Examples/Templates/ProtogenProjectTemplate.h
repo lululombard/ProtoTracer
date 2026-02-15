@@ -74,6 +74,11 @@ private:
     bool isBooped = false;
 
     /**
+     * @brief Previous boop state for edge detection (serial notification).
+     */
+    bool wasBooped = false;
+
+    /**
      * @brief Flag to indicate if the blink parameter has been set.
      */
     bool blinkSet = false;
